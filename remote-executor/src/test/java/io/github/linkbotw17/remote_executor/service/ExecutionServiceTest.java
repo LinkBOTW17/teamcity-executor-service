@@ -13,14 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ExecutionServiceTest {
 
     private ExecutionService executionService;
-    private DockerClient mockDockerClient;
+    private DockerWorker mockDockerWorker;
 
     @BeforeEach
     void setUp() {
-        // Mock the DockerClient so to avoid spinning up real containers during tests.
+        // Mock the DockerWorker so to avoid spinning up real containers during tests.
         // RETURNS_DEEP_STUBS prevents NullPointerExceptions when the service chains Docker methods.
-        mockDockerClient = Mockito.mock(DockerClient.class, Mockito.RETURNS_DEEP_STUBS);
-        executionService = new ExecutionService(mockDockerClient);
+        mockDockerWorker = Mockito.mock(DockerWorker.class);
+        executionService = new ExecutionService(mockDockerWorker);
     }
 
     @Test
