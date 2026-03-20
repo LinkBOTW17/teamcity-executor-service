@@ -6,6 +6,7 @@ public class ExecutionJob {
     private final String id;
     private final ExecutionRequest request;
     private ExecutionStatus status;
+    private String errorMessage;
 
     public ExecutionJob(ExecutionRequest request) {
         this.id = UUID.randomUUID().toString(); // Auto-generate a unique ID
@@ -17,9 +18,15 @@ public class ExecutionJob {
     public String getId() { return id; }
     public ExecutionRequest getRequest() { return request; }
     public ExecutionStatus getStatus() { return status; }
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 
-    // We only need a setter for the status, since ID and request shouldn't change
     public void setStatus(ExecutionStatus status) {
         this.status = status;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }
