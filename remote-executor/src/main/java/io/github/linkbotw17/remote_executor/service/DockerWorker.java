@@ -37,8 +37,12 @@ public class DockerWorker {
 
         } catch (Exception e) {
             System.err.println("Failed to execute job " + job.getId() + ": " + e.getMessage());
+            job.setStatus(ExecutionStatus.FAILED);
         } finally {
-            job.setStatus(ExecutionStatus.FINISHED);
+            // Only mark as FINISHED if the job didn't fail
+            if (job.getStatus() != ExecutionStatus.FAILED) {
+                job.setStatus(ExecutionStatus.FINISHED);
+            }
         }
     }
 }
