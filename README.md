@@ -9,13 +9,14 @@ This project was developed as a technical task, focusing on asynchronous process
 * **Asynchronous Execution:** Scripts are executed in background threads, immediately returning a job ID to the user.
 * **Docker Isolation:** Every script runs inside a fresh `alpine:latest` Docker container, preventing host machine contamination.
 * **Resource Limiting:** CPU limits specified in the request are translated to Docker NanoCPUs and enforced on the container.
-* **Status Tracking:** Users can poll the API to see if their job is `QUEUED`, `IN_PROGRESS`, or `FINISHED`.
+* **Status Tracking:** Users can poll the API to see if their job is `QUEUED`, `IN_PROGRESS`, `FAILED` or `FINISHED`.
 
 ## Architecture & Design Decisions
 
 * **Spring AOP & Async:** The application leverages Spring's `@Async` for multithreading. To prevent bypassing the Spring AOP proxy, the background execution logic is extracted into a dedicated `DockerWorker` component, separating infrastructure concerns from business logic.
 * **docker-java:** Uses the official Java Docker API client to communicate directly with the local Docker daemon via sockets, avoiding fragile `Runtime.exec()` shell commands.
 * **Thread-Safe State:** Job states are stored in a `ConcurrentHashMap` to ensure thread safety between the web server threads and background worker threads.
+* **Added a `FAILED` status:** Introduces a FAILED state to prevent silent failures. If the Docker container crashes or the socket fails, the job accurately reflects a failed execution rather than falsely reporting FINISHED.
 
 ## 📋 Prerequisites
 
