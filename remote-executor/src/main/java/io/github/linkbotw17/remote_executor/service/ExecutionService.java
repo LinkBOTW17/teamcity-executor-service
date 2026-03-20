@@ -1,12 +1,7 @@
 package io.github.linkbotw17.remote_executor.service;
 
-import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.command.CreateContainerResponse;
-import com.github.dockerjava.api.model.HostConfig;
 import io.github.linkbotw17.remote_executor.model.ExecutionJob;
 import io.github.linkbotw17.remote_executor.model.ExecutionRequest;
-import io.github.linkbotw17.remote_executor.model.ExecutionStatus;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

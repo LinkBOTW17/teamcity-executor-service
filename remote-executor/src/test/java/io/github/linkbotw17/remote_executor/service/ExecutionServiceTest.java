@@ -1,13 +1,11 @@
 package io.github.linkbotw17.remote_executor.service;
 
-import com.github.dockerjava.api.DockerClient;
 import io.github.linkbotw17.remote_executor.model.ExecutionJob;
 import io.github.linkbotw17.remote_executor.model.ExecutionRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ExecutionServiceTest {
