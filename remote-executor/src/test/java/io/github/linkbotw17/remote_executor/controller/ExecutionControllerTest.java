@@ -27,14 +27,14 @@ class ExecutionControllerTest {
 
     @Test
     void submitCommand_ShouldReturn202Accepted() throws Exception {
-        ExecutionRequest request = new ExecutionRequest("echo 'Test'", 1.0);
+        ExecutionRequest request = new ExecutionRequest("echo 'Test'", 1.0, 256L);
         ExecutionJob mockJob = new ExecutionJob(request);
 
         Mockito.when(executionService.submitJob(Mockito.any(ExecutionRequest.class))).thenReturn(mockJob);
 
         mockMvc.perform(post("/api/execute")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"script\": \"echo 'Test'\", \"cpuCount\": 1.0}"))
+                        .content("{\"script\": \"echo 'Test'\", \"cpuCount\": 1.0, \"memoryMb\": 256}"))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.id").value(mockJob.getId()))
                 .andExpect(jsonPath("$.status").value("QUEUED"));
@@ -42,7 +42,7 @@ class ExecutionControllerTest {
 
     @Test
     void getStatus_ShouldReturn200_WhenJobExists() throws Exception {
-        ExecutionJob mockJob = new ExecutionJob(new ExecutionRequest("ls", 0.5));
+        ExecutionJob mockJob = new ExecutionJob(new ExecutionRequest("ls", 0.5, 32L));
 
         Mockito.when(executionService.getJob(mockJob.getId())).thenReturn(mockJob);
 

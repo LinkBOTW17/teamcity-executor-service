@@ -25,7 +25,7 @@ class ExecutionServiceTest {
 
     @Test
     void submitJob_ShouldCreateAndStoreJob() {
-        ExecutionRequest request = new ExecutionRequest("echo 'Hello'", 1.0);
+        ExecutionRequest request = new ExecutionRequest("echo 'Hello'", 1.0, 256L);
 
         ExecutionJob job = executionService.submitJob(request);
 

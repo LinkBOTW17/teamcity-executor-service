@@ -11,7 +11,7 @@ class ExecutionJobTest {
     @Test
     void newJobShouldBeQueuedWithGeneratedId() {
         // Arrange
-        ExecutionRequest request = new ExecutionRequest("echo 'Hello World'", 1.0);
+        ExecutionRequest request = new ExecutionRequest("echo 'Hello World'", 1.0, 256L);
 
         // Act
         ExecutionJob job = new ExecutionJob(request);
@@ -25,7 +25,7 @@ class ExecutionJobTest {
     @Test
     void statusShouldUpdateCorrectly() {
         // Arrange
-        ExecutionRequest request = new ExecutionRequest("ls -la", 0.5);
+        ExecutionRequest request = new ExecutionRequest("ls -la", 0.5, 32L);
         ExecutionJob job = new ExecutionJob(request);
 
         // Act
