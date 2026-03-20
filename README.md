@@ -70,7 +70,8 @@ Unit tests are written using JUnit 5 and Mockito. The `docker-java` client is mo
     "memoryMb": 256
   },
   "status": "QUEUED",
-  "errorMessage": null
+  "errorMessage": null,
+  "output": null
 }
 ```
 
@@ -88,7 +89,8 @@ Unit tests are written using JUnit 5 and Mockito. The `docker-java` client is mo
     "memoryMb": 256
   },
   "status": "FINISHED",
-  "errorMessage": null
+  "errorMessage": null,
+  "output": "Hello from Docker!"
 }
 ```
 
@@ -102,7 +104,8 @@ Unit tests are written using JUnit 5 and Mockito. The `docker-java` client is mo
     "memoryMb": 32
   },
   "status": "FAILED",
-  "errorMessage": "Container failed or exceeded resources. Exit code: 137"
+  "errorMessage": "Container failed or exceeded resources. Exit code: 137",
+  "output": null
 }
 ```
 
