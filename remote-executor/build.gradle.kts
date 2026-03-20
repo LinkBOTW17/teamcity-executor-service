@@ -22,7 +22,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("com.github.docker-java:docker-java:3.3.6")
-	implementation("com.github.docker-java:docker-java-transport-httpclient5:3.3.6")
+	implementation("com.github.docker-java:docker-java-transport-zerodep:3.3.6")
 }
 
 tasks.withType<Test> {
