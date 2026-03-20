@@ -1,9 +1,11 @@
 package io.github.linkbotw17.remote_executor.service;
 
+import com.github.dockerjava.api.DockerClient;
 import io.github.linkbotw17.remote_executor.model.ExecutionJob;
 import io.github.linkbotw17.remote_executor.model.ExecutionRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,10 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ExecutionServiceTest {
 
     private ExecutionService executionService;
+    private DockerClient mockDockerClient;
 
     @BeforeEach
     void setUp() {
-        executionService = new ExecutionService();
+        // Mock the DockerClient so to avoid spinning up real containers during tests.
+        // RETURNS_DEEP_STUBS prevents NullPointerExceptions when the service chains Docker methods.
+        mockDockerClient = Mockito.mock(DockerClient.class, Mockito.RETURNS_DEEP_STUBS);
+        executionService = new ExecutionService(mockDockerClient);
     }
 
     @Test
