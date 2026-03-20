@@ -43,6 +43,29 @@ public class DockerWorker {
                     .start()
                     .awaitCompletion();
 
+            // Fetch the logs (output) from the container
+            StringBuilder logOutput = new StringBuilder();
+
+            // Instantiate the callback separately
+            com.github.dockerjava.api.async.ResultCallback.Adapter<com.github.dockerjava.api.model.Frame> logCallback =
+                    new com.github.dockerjava.api.async.ResultCallback.Adapter<>() {
+                        @Override
+                        public void onNext(com.github.dockerjava.api.model.Frame item) {
+                            logOutput.append(new String(item.getPayload()));
+                        }
+                    };
+
+            // Pass it to the exec command (do NOT chain awaitCompletion here)
+            dockerClient.logContainerCmd(container.getId())
+                    .withStdOut(true)
+                    .withStdErr(true)
+                    .exec(logCallback);
+
+            // Await completion on our local variable instead of the mock's return value
+            logCallback.awaitCompletion();
+
+            job.setOutput(logOutput.toString().trim());
+
             // Inspect the container to see if it crashed or was killed by limits
             Long exitCode = dockerClient.inspectContainerCmd(container.getId())
                     .exec()

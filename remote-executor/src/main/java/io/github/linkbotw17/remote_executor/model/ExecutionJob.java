@@ -7,11 +7,14 @@ public class ExecutionJob {
     private final ExecutionRequest request;
     private ExecutionStatus status;
     private String errorMessage;
+    private String output;
 
     public ExecutionJob(ExecutionRequest request) {
         this.id = UUID.randomUUID().toString(); // Auto-generate a unique ID
         this.request = request;
         this.status = ExecutionStatus.QUEUED;   // Always starts as QUEUED
+        this.errorMessage = "";
+        this.output = "";
     }
 
     // Getters
@@ -21,6 +24,7 @@ public class ExecutionJob {
     public String getErrorMessage() {
         return errorMessage;
     }
+    public String getOutput(){ return output; }
 
     public void setStatus(ExecutionStatus status) {
         this.status = status;
@@ -28,5 +32,9 @@ public class ExecutionJob {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public void setOutput(String output){
+        this.output = output;
     }
 }
